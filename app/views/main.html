@@ -1,4 +1,64 @@
 <div class="row">
-  <div class="col-sm-8">Charts</div>
-  <div class="col-sm-4">Edits</div>
+  <div class="col-sm-8">
+    <div class="general-wrapper">
+      <h3>Overview</h3>
+      <nvd3 options="main.options" data="main.data"></nvd3>
+      <h3>
+        Accounts
+        <button class="btn pull-right"
+                ng-init="addAccountToggle = false"
+                ng-class="{true:'btn-danger', false:'btn-success'}[addAccountToggle]"
+                ng-click="addAccountToggle = !addAccountToggle">
+          {{addAccountToggle ? 'Cancel' : 'Add Account'}}
+        </button>
+      </h3>
+
+      <div class="template" ng-show="addAccountToggle">
+        <form class="form-inline">
+          <div class="form-group">
+            <input type="text"
+                   class="form-control"
+                   placeholder="Account Name" />
+          </div>
+          <div class="form-group">
+            <input type="text"
+                   class="form-control"
+                   placeholder="Starting Balance" />
+          </div>
+          <div class="form-group">
+            <input type="text"
+                   class="form-control"
+                   placeholder="APR" />
+          </div>
+          <div class="form-group">
+            <button class="btn btn-success">
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <table class="table table-striped">
+        <tr>
+          <th>Name</th>
+          <th>Balance</th>
+          <th>APR</th>
+          <th></th>
+        </tr>
+        <tr ng-repeat="account in main.accounts">
+          <td>{{account.name}}</td>
+          <td>{{account.balance}}</td>
+          <td>{{account.apr}}</td>
+          <td><button class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i> Remove</button></td>
+        </tr>
+      </table>
+
+    </div>
+  </div>
+
+  <div class="col-sm-4">
+    <div class="general-wrapper">
+      <h3>Account Edits</h3>
+    </div>
+  </div>
 </div>

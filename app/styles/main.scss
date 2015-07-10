@@ -1,8 +1,22 @@
-//$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 //// bower:scss
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
-//
+
+table {
+  margin-top: 24px;
+}
+
+.general-wrapper {
+  padding: 0 12px;
+}
+
+.template {
+  margin-top: 24px;
+  background-color: whitesmoke;
+  padding: 8px;
+}
+
 //.browsehappy {
 //  margin: 0.2em 0;
 //  background: #ccc;

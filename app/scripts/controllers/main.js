@@ -72,6 +72,16 @@ angular.module('ccPaydownVizApp')
       }
     ];
 
+    this.saveNewAccount = function() {
+      this.accounts.push(this.newAccount);
+      this.newAccount = null;
+    };
+
+    this.removeAccount = function(account) {
+      var index = this.accounts.indexOf(account);
+      this.accounts.splice(index, 1);
+    };
+
     this.accounts = [
       {
         name: 'Discover',

@@ -18,20 +18,24 @@
           <div class="form-group">
             <input type="text"
                    class="form-control"
-                   placeholder="Account Name" />
+                   placeholder="Account Name"
+                   ng-model="main.newAccount.name" />
           </div>
           <div class="form-group">
             <input type="text"
                    class="form-control"
-                   placeholder="Starting Balance" />
+                   placeholder="Starting Balance"
+                   ng-model="main.newAccount.balance" />
           </div>
           <div class="form-group">
             <input type="text"
                    class="form-control"
-                   placeholder="APR" />
+                   placeholder="APR"
+                   ng-model="main.newAccount.apr" />
           </div>
           <div class="form-group">
-            <button class="btn btn-success">
+            <button class="btn btn-success"
+                    ng-click="main.saveNewAccount()">
               Save
             </button>
           </div>
@@ -49,7 +53,12 @@
           <td>{{account.name}}</td>
           <td>{{account.balance}}</td>
           <td>{{account.apr}}</td>
-          <td><button class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i> Remove</button></td>
+          <td>
+            <button class="btn btn-danger btn-xs"
+                    ng-click="main.removeAccount(account)">
+              <i class="glyphicon glyphicon-remove"></i> Remove
+            </button>
+          </td>
         </tr>
       </table>
 

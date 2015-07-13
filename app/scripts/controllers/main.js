@@ -58,9 +58,9 @@ angular.module('ccPaydownVizApp')
     }
 
     this.saveNewAccount = function() {
+      this.newAccount.apr = this.newAccount.apr/100;
       var interest = (this.newAccount.balance * (this.newAccount.apr/12));
       this.newAccount.payment = (this.newAccount.balance * .03) + interest;
-      this.newAccount.key = this.newAccount.name;
       this.newAccount.values =
           calculateValues(this.newAccount.balance,
                           this.newAccount.apr,
@@ -77,10 +77,9 @@ angular.module('ccPaydownVizApp')
 
     this.accounts = [
       {
-        name: 'Discover',
-        balance: '1000',
-        apr: '29.99',
-        key: "Discover",
+        balance: 1000,
+        apr: .2999,
+        key: 'Discover',
         values: [ [ 1436741982313, 1000 ],
           [ 1439333982313, 908.3333333333334 ],
           [ 1441925982313, 815.9027777777778 ],
@@ -93,7 +92,7 @@ angular.module('ccPaydownVizApp')
           [ 1460069982313, 146.95853773921533 ],
           [ 1462661982313, 48.18319222037546 ],
           [ 1465253982313, 0 ] ],
-        mean: 250
+        payment: 100
       }
     ];
 

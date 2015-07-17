@@ -19,29 +19,29 @@
             <input type="text"
                    class="form-control"
                    placeholder="Account Name"
-                   ng-model="main.newAccount.key" />
+                   ng-model="newAccount.name" />
           </div>
           <div class="form-group">
             <input type="number"
                    class="form-control"
                    placeholder="Starting Balance"
-                   ng-model="main.newAccount.balance" />
+                   ng-model="newAccount.balance" />
           </div>
           <div class="form-group">
             <input type="number"
                    class="form-control"
                    placeholder="APR"
-                   ng-model="main.newAccount.apr" />
+                   ng-model="newAccount.apr" />
           </div>
           <div class="form-group">
             <input type="number"
                    class="form-control"
                    placeholder="Minimum Payment"
-                   ng-model="main.newAccount.minPayment" />
+                   ng-model="newAccount.minPayment" />
           </div>
           <div class="form-group">
             <button class="btn btn-success"
-                    ng-click="main.saveNewAccount()">
+                    ng-click="saveNewAccount()">
               Save
             </button>
           </div>
@@ -70,7 +70,7 @@
           </td>
           <td>
             <button class="btn btn-danger btn-xs"
-                    ng-click="main.removeAccount(account)">
+                    ng-click="removeAccount(account)">
               <i class="glyphicon glyphicon-remove"></i> Remove
             </button>
           </td>

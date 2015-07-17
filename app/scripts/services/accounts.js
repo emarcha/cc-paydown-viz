@@ -14,11 +14,18 @@ angular.module('ccPaydownVizApp')
 
     var accounts = [
       {
-        balance: 1000,
-        apr: .2999,
         name: 'Discover',
+        balance: 1000,
+        apr: 0.2450,
         minPayment: 100,
         payment: 100
+      },
+      {
+        name: 'Capital One',
+        balance: 600,
+        apr: 0.2899,
+        minPayment: 50,
+        payment: 50
       }
     ];
 
@@ -35,23 +42,43 @@ angular.module('ccPaydownVizApp')
     }
 
     this.createGraphData = function createGraphData() {
-      graphData = [
-        {
-          key: accounts[0].name,
-          values: calculateValues(accounts[0].balance,
-                                  accounts[0].apr,
-                                  accounts[0].payment,
+      graphData = [];
+      angular.forEach(accounts, function(account) {
+        graphData.push({
+          key: account.name,
+          values: calculateValues(account.balance,
+                                  account.apr,
+                                  account.payment,
                                   (new Date()))
-        }
-      ]
+        });
+      });
     };
 
     this.getGraphData = function getGraphData() {
       return graphData;
     };
 
+    this.addAccount = function addAccount(newAccount) {
+      newAccount.apr = newAccount.apr/100;
+      if (!newAccount.minPayment) {
+        var interest = (newAccount.balance * (newAccount.apr/12));
+        newAccount.payment = newAccount.minPayment = (newAccount.balance * 0.03) + interest;
+      } else {
+        newAccount.payment = newAccount.minPayment;
+      }
+      accounts.push(newAccount);
+      this.createGraphData();
+    };
+
+    this.removeAccount = function removeAccount(account) {
+      accounts.splice(accounts.indexOf(account), 1);
+      graphData = graphData.filter(function(e) {
+        return e.key !== account.name;
+      })
+    };
+
     this.getAccounts = function getAccounts() {
       return accounts;
-    }
+    };
 
   });

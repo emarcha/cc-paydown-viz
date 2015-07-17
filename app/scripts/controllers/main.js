@@ -10,9 +10,6 @@
 angular.module('ccPaydownVizApp')
   .controller('MainCtrl', function ($scope, accounts) {
 
-    $scope.accounts = null;
-    $scope.data = null;
-
     accounts.createGraphData();
 
     $scope.$watch(accounts.getAccounts, function() {
@@ -45,7 +42,7 @@ angular.module('ccPaydownVizApp')
         xAxis: {
           axisLabel: 'Date',
           tickFormat: function(d) {
-            return d3.time.format('%b %y')(new Date(d))
+            return d3.time.format('%b %y')(new Date(d));
           },
           showMaxMin: false
         },
@@ -53,40 +50,19 @@ angular.module('ccPaydownVizApp')
         yAxis: {
           axisLabel: 'Balance',
           tickFormat: function(d) {
-            return d3.format('$.5n')(d);
+            return d3.format('$,.2f')(d);
           }
         }
       }
     };
 
-    this.saveNewAccount = function() {
-      this.newAccount.apr = this.newAccount.apr/100;
-      if (!this.newAccount.minPayment) {
-        var interest = (this.newAccount.balance * (this.newAccount.apr/12));
-        this.newAccount.payment = this.newAccount.minPayment = (this.newAccount.balance * .03) + interest;
-      } else {
-        this.newAccount.payment = this.newAccount.minPayment;
-      }
-      this.newAccount.values =
-          calculateValues(this.newAccount.balance,
-                          this.newAccount.apr,
-                          this.newAccount.minPayment,
-                          (new Date()));
-      $scope.accounts.push(this.newAccount);
-      this.newAccount = null;
+    $scope.saveNewAccount = function() {
+      accounts.addAccount($scope.newAccount);
+      $scope.newAccount = null;
     };
 
-    this.updateAccount = function(account) {
-      account.values =
-        calculateValues(account.balance,
-                        account.apr,
-                        account.minPayment,
-                        account.values[0][1]);
-    };
-
-    this.removeAccount = function(account) {
-      var index = $scope.accounts.indexOf(account);
-      $scope.accounts.splice(index, 1);
+    $scope.removeAccount = function(account) {
+      accounts.removeAccount(account);
     };
 
   });

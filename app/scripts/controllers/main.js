@@ -61,6 +61,10 @@ angular.module('ccPaydownVizApp')
       $scope.newAccount = null;
     };
 
+    $scope.updateAccount = function(account, index) {
+      accounts.updateAccount(account, index);
+    };
+
     $scope.removeAccount = function(account) {
       accounts.removeAccount(account);
     };

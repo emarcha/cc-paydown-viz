@@ -70,6 +70,11 @@ angular.module('ccPaydownVizApp')
       this.createGraphData();
     };
 
+    this.updateAccount = function updateAccount(account, index) {
+      accounts[index] = account;
+      this.createGraphData();
+    };
+
     this.removeAccount = function removeAccount(account) {
       accounts.splice(accounts.indexOf(account), 1);
       graphData = graphData.filter(function(e) {

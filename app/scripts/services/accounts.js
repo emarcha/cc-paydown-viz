@@ -54,7 +54,7 @@ angular.module('ccPaydownVizApp')
 
       months.push(
         {
-          date: dueDate,
+          date: dueDate.setMonth(dueDate.getMonth() + 1),
           balance: 0,
           interest: 0,
           payment: 0

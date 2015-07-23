@@ -33,14 +33,14 @@ angular.module('ccPaydownVizApp')
     accounts.addAccount(testAccounts[1]);
 
     $scope.$watch(accounts.getAccounts, function() {
-      $scope.accounts = accounts.getAccounts();
+      vm.accounts = accounts.getAccounts();
     });
 
     $scope.$watch(accounts.getGraphData, function() {
-      $scope.data = accounts.getGraphData();
+      vm.data = accounts.getGraphData();
     });
 
-    $scope.options = {
+    vm.options = {
       chart: {
         type: 'lineChart',
         height: 450,
@@ -85,8 +85,8 @@ angular.module('ccPaydownVizApp')
 //      accounts.updateAccount(account, index);
 //    };
 
-//    $scope.removeAccount = function(account) {
-//      accounts.removeAccount(account);
-//    };
+    vm.removeAccount = function(account) {
+      accounts.removeAccount(account);
+    };
 
   });

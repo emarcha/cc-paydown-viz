@@ -8,7 +8,7 @@
  * Controller of the ccPaydownVizApp
  */
 angular.module('ccPaydownVizApp')
-  .controller('MainCtrl', function ($scope, accounts) {
+  .controller('MainCtrl', function (AccountSrv) {
 
     var vm = this;
 
@@ -29,16 +29,10 @@ angular.module('ccPaydownVizApp')
       }
     ];
 
-    accounts.addAccount(testAccounts[0]);
-    accounts.addAccount(testAccounts[1]);
+    AccountSrv.addAccount(testAccounts[0]);
+    AccountSrv.addAccount(testAccounts[1]);
 
-    $scope.$watch(accounts.getAccounts, function() {
-      vm.accounts = accounts.getAccounts();
-    });
-
-    $scope.$watch(accounts.getGraphData, function() {
-      vm.data = accounts.getGraphData();
-    });
+    vm.accountSrv = AccountSrv;
 
     vm.options = {
       chart: {
@@ -77,16 +71,12 @@ angular.module('ccPaydownVizApp')
     };
 
     vm.saveNewAccount = function() {
-      accounts.addAccount(vm.newAccount);
+      vm.accountSrv.addAccount(vm.newAccount);
       vm.newAccount = null;
     };
 
-//    $scope.updateAccount = function(account, index) {
-//      accounts.updateAccount(account, index);
-//    };
-
     vm.removeAccount = function(account) {
-      accounts.removeAccount(account);
+      vm.accountSrv.removeAccount(account);
     };
 
   });

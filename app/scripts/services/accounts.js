@@ -8,10 +8,10 @@
  * Service in the ccPaydownVizApp.
  */
 angular.module('ccPaydownVizApp')
-  .service('accounts', function () {
+  .service('AccountSrv', function () {
 
-    var graphData;
-    var accounts = [];
+    this.graphData = [];
+    this.accounts = [];
 
     function findValues(account) {
       var values = [];
@@ -64,19 +64,16 @@ angular.module('ccPaydownVizApp')
       return months;
     }
 
-    this.createGraphData = function createGraphData() {
-      graphData = [];
+    function createGraphData(accounts) {
+      var data = [];
       angular.forEach(accounts, function(account) {
-        graphData.push({
+        data.push({
           key: account.name,
           values: findValues(account)
         });
       });
-    };
-
-    this.getGraphData = function getGraphData() {
-      return graphData;
-    };
+      return data;
+    }
 
     this.addAccount = function addAccount(newAccount) {
       // Change the APR to decimal form
@@ -92,10 +89,10 @@ angular.module('ccPaydownVizApp')
       newAccount.months = generateMonths(newAccount);
 
       // Add to accounts
-      accounts.push(newAccount);
+      this.accounts.push(newAccount);
 
       // Update graph data
-      this.createGraphData();
+      this.graphData = createGraphData(this.accounts);
     };
 
     this.updateAccount = function updateAccount(account, index) {
@@ -104,14 +101,10 @@ angular.module('ccPaydownVizApp')
     };
 
     this.removeAccount = function removeAccount(account) {
-      accounts.splice(accounts.indexOf(account), 1);
-      graphData = graphData.filter(function(e) {
+      this.accounts.splice(this.accounts.indexOf(account), 1);
+      this.graphData = this.graphData.filter(function(e) {
         return e.key !== account.name;
       })
-    };
-
-    this.getAccounts = function getAccounts() {
-      return accounts;
     };
 
   });

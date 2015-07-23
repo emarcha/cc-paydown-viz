@@ -10,7 +10,27 @@
 angular.module('ccPaydownVizApp')
   .controller('MainCtrl', function ($scope, accounts) {
 
-    accounts.createGraphData();
+    var vm = this;
+
+    var testAccounts = [
+      {
+        name: 'Discover',
+        apr: 24.5,
+        currentBalance: 1000,
+        dueDate: '08/02/2015',
+        minPayment: 50
+      },
+      {
+        name: 'Capital One',
+        apr: 28.99,
+        currentBalance: 600,
+        dueDate: '08/15/2015',
+        minPayment: 50
+      }
+    ];
+
+    accounts.addAccount(testAccounts[0]);
+    accounts.addAccount(testAccounts[1]);
 
     $scope.$watch(accounts.getAccounts, function() {
       $scope.accounts = accounts.getAccounts();
@@ -56,17 +76,17 @@ angular.module('ccPaydownVizApp')
       }
     };
 
-    $scope.saveNewAccount = function() {
-      accounts.addAccount($scope.newAccount);
-      $scope.newAccount = null;
+    vm.saveNewAccount = function() {
+      accounts.addAccount(vm.newAccount);
+      vm.newAccount = null;
     };
 
-    $scope.updateAccount = function(account, index) {
-      accounts.updateAccount(account, index);
-    };
+//    $scope.updateAccount = function(account, index) {
+//      accounts.updateAccount(account, index);
+//    };
 
-    $scope.removeAccount = function(account) {
-      accounts.removeAccount(account);
-    };
+//    $scope.removeAccount = function(account) {
+//      accounts.removeAccount(account);
+//    };
 
   });

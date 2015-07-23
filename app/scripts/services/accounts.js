@@ -11,34 +11,57 @@ angular.module('ccPaydownVizApp')
   .service('accounts', function () {
 
     var graphData;
+    var accounts = [];
 
-    var accounts = [
-      {
-        name: 'Discover',
-        balance: 1000,
-        apr: 0.2450,
-        minPayment: 100,
-        payment: 100
-      },
-      {
-        name: 'Capital One',
-        balance: 600,
-        apr: 0.2899,
-        minPayment: 50,
-        payment: 50
-      }
-    ];
-
-    function calculateValues(balance, apr, payment, date) {
-      var values = [[date.valueOf(), balance]];
-      date = new Date(date);
-      while (balance > payment) {
-        var interest = balance * (apr/12);
-        balance = balance - payment + interest;
-        values.push([date.setMonth(date.getMonth() + 1), balance]);
-      }
-      values.push([(date.setMonth(date.getMonth() + 1)), 0]);
+    function findValues(account) {
+      var values = [];
+      angular.forEach(account.months, function(month) {
+        values.push(
+          [month.date, month.balance]
+        )
+      });
       return values;
+    }
+
+    function generateMonths(account) {
+      var months = [];
+      var balance = account.currentBalance;
+      var dueDate = new Date(account.dueDate);
+      var payment = account.minPayment;
+      var interest = balance * (account.apr/12);
+
+      months.push(
+        {
+          date: (new Date(dueDate)),
+          balance: balance,
+          interest: interest,
+          payment: payment
+        }
+      );
+
+      while (balance > payment) {
+        interest = balance * (account.apr/12);
+        balance = balance - payment + interest;
+        months.push(
+          {
+            date: dueDate.setMonth(dueDate.getMonth() + 1),
+            balance: balance,
+            interest: interest,
+            payment: payment
+          }
+        );
+      }
+
+      months.push(
+        {
+          date: dueDate,
+          balance: 0,
+          interest: 0,
+          payment: 0
+        }
+      );
+
+      return months;
     }
 
     this.createGraphData = function createGraphData() {
@@ -46,10 +69,7 @@ angular.module('ccPaydownVizApp')
       angular.forEach(accounts, function(account) {
         graphData.push({
           key: account.name,
-          values: calculateValues(account.balance,
-                                  account.apr,
-                                  account.payment,
-                                  (new Date()))
+          values: findValues(account)
         });
       });
     };
@@ -59,14 +79,22 @@ angular.module('ccPaydownVizApp')
     };
 
     this.addAccount = function addAccount(newAccount) {
+      // Change the APR to decimal form
       newAccount.apr = newAccount.apr/100;
+
+      // Calculate the minimum payment if not there
       if (!newAccount.minPayment) {
         var interest = (newAccount.balance * (newAccount.apr/12));
-        newAccount.payment = newAccount.minPayment = (newAccount.balance * 0.03) + interest;
-      } else {
-        newAccount.payment = newAccount.minPayment;
+        newAccount.minPayment = (newAccount.balance * 0.03) + interest;
       }
+
+      // Create each month of payment
+      newAccount.months = generateMonths(newAccount);
+
+      // Add to accounts
       accounts.push(newAccount);
+
+      // Update graph data
       this.createGraphData();
     };
 

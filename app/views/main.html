@@ -63,17 +63,20 @@
           <td>{{account.apr * 100 | number :2}}%</td>
           <td>{{account.minPayment | currency}}</td>
           <td>
-            <form class="form-inline">
-              <div class="form-group">
-                <input type="number"
-                       class="form-control"
-                       ng-model="account.payment" />
-                <button class="btn btn-warning"
-                        ng-click="updateAccount(account, $index)">
-                  <i class="glyphicon glyphicon-edit"></i>
-                </button>
-              </div>
-            </form>
+            <!--<form class="form-inline">-->
+              <!--<div class="form-group">-->
+                <!--<input type="number"-->
+                       <!--class="form-control"-->
+                       <!--ng-model="account.payment" />-->
+                <!--<button class="btn btn-warning"-->
+                        <!--ng-click="updateAccount(account, $index)">-->
+                  <!--<i class="glyphicon glyphicon-edit"></i>-->
+                <!--</button>-->
+              <!--</div>-->
+            <!--</form>-->
+            <rzslider rz-slider-model="account.payment"
+                      rz-slider-ceil="account.balance"
+                      rz-slider-floor="account.minPayment"></rzslider>
           </td>
           <td>
             <button class="btn btn-danger"

@@ -17,15 +17,15 @@ angular.module('ccPaydownVizApp')
         name: 'Discover',
         balance: 1000,
         apr: 0.2450,
-        minPayment: 100,
+        minPayment: 50,
         payment: 100
       },
       {
         name: 'Capital One',
         balance: 600,
         apr: 0.2899,
-        minPayment: 50,
-        payment: 50
+        minPayment: 30,
+        payment: 75
       }
     ];
 

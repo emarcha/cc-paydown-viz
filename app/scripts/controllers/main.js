@@ -69,4 +69,8 @@ angular.module('ccPaydownVizApp')
       accounts.removeAccount(account);
     };
 
+    $scope.$on('slideEnded', function(account) {
+
+    })
+
   });

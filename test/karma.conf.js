@@ -34,6 +34,7 @@ module.exports = function(config) {
       'bower_components/d3/d3.js',
       'bower_components/nvd3/nv.d3.js',
       'bower_components/angular-nvd3/dist/angular-nvd3.min.js',
+      'bower_components/angularjs-slider/rzslider.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",
